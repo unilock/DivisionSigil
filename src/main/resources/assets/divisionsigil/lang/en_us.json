@@ -15,8 +15,24 @@
   "divisionsigil.configuration.title": "Division Sigil Configs",
   "divisionsigil.configuration.section.divisionsigil.common.toml": "Division Sigil Configs",
   "divisionsigil.configuration.section.divisionsigil.common.toml.title": "Division Sigil Configs",
-  "divisionsigil.configuration.explodeTime": "Unstable Ingot Lifetime (in ticks)",
+  "divisionsigil.configuration.explodeTime": "Unstable Ingot Lifetime",
+  "divisionsigil.configuration.axeRestoreTime": "Interval between Healing Axe hunger restoration",
+  "divisionsigil.configuration.axeHungerAmount": "Hunger to restore for Healing Axe",
+  "divisionsigil.configuration.axeSaturationAmount": "Saturation to restore for Healing Axe",
+  "divisionsigil.configuration.axeHealAmount": "Mob health to restore for Healing Axe",
+  "divisionsigil.configuration.axeLifeCost": "Health cost to use Healing Axe",
+  "divisionsigil.configuration.axeUndeadDamageMultiplier": "Healing Axe undead damage multiplier",
+  "divisionsigil.configuration.divisionSigilDurability": "Division Sigil # of uses on activation",
 
   "message.divisionsigil.sigils_activated": "%d division sigil(s) activated",
-  "tooltip.divisionsigil.instability_counter": "Explodes in %s seconds"
+  "message.divisionsigil.midnight_condition": "The Division Sigil ritual must be performed at midnight.",
+  "message.divisionsigil.sky_condition": "The Division Sigil ritual must be performed in clear view of the sky.",
+  "message.divisionsigil.redstone_condition": "The enchantment table must be surrounded by 8 adjacent redstone wire blocks.",
+  "message.divisionsigil.dirt_condition": "The enchantment table must be on a 5 by 5 surface of dirt or equivalent blocks.",
+  "message.divisionsigil.kill_condition": "The sacrifice conditions are right. Kill any mob near the table to activate the division sigil(s).",
+
+  "tooltip.divisionsigil.instability_counter": "Explodes in %s seconds",
+
+  "gui.divisionsigil.biome_allowlist": "(certain biomes only)",
+  "gui.divisionsigil.biome_denylist": "(except certain biomes)"
 }

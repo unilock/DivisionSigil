@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "g": "minecraft:gold_nugget",
-    "s": "divisionsigil:division_sigil",
-    "d": "minecraft:diamond"
+    "g": {
+      "item": "minecraft:gold_nugget"
+    },
+    "s": {
+      "item": "divisionsigil:division_sigil"
+    },
+    "d": {
+      "item": "minecraft:diamond"
+    }
   },
   "pattern": [
     "g",

@@ -53,6 +53,12 @@ public class UnstableRecipe extends ShapedRecipe {
                 .anyMatch(trace -> PARENT_CLASSES.contains(trace.getClassName()));
     }
 
+    @Nonnull
+    @Override
+    public RecipeSerializer<? extends UnstableRecipe> getSerializer() {
+        return DivisionSigil.UNSTABLE_RECIPE.get();
+    }
+
     @SubscribeEvent
     public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
         if (!event.getEntity().level().isClientSide() && event.getEntity().containerMenu instanceof CraftingMenu menu) {

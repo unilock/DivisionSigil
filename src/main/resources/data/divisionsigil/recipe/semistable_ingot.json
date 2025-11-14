@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "n": "divisionsigil:unstable_nugget"
+    "n": {
+      "item": "divisionsigil:unstable_nugget"
+    }
   },
   "pattern": [
     "nnn",

@@ -2,8 +2,6 @@ package com.landmaster.divisionsigil;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
@@ -34,6 +32,10 @@ public class Config {
     public static final ModConfigSpec.DoubleValue AXE_UNDEAD_DAMAGE_MULTIPLIER = BUILDER
             .comment("Damage multiplier against undead when attacking with the Healing Axe")
             .defineInRange("axeUndeadDamageMultiplier", 4.0, 0.0, 100.0);
+
+    public static final ModConfigSpec.IntValue DIVISION_SIGIL_DURABILITY = BUILDER
+            .comment("Number of uses per division sigil activation")
+            .defineInRange("divisionSigilDurability", 256, 1, Integer.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }

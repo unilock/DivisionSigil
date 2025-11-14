@@ -7,11 +7,9 @@ import com.landmaster.divisionsigil.transmutation.CropRevertTransmutation;
 import com.landmaster.divisionsigil.transmutation.HoeTransmutation;
 import com.landmaster.divisionsigil.transmutation.StandardHoeTransmutation;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -19,10 +17,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.SimpleTier;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
@@ -36,7 +36,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -49,15 +48,6 @@ public class DivisionSigil {
     public static final String MODID = "divisionsigil";
 
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    public static final ResourceKey<Registry<HoeTransmutation>> HOE_TRANSMUTATIONS_KEY = ResourceKey.createRegistryKey(
-            ResourceLocation.fromNamespaceAndPath(MODID, "transmutation")
-    );
-    public static final ResourceKey<Registry<MapCodec<? extends HoeTransmutation>>> HOE_TRANSMUTATIONS_DISPATCH_KEY
-            = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(MODID, "transmutation_dispatch"));
-
-    public static final Registry<MapCodec<? extends HoeTransmutation>> HOE_TRANSMUTATIONS_DISPATCH = new RegistryBuilder<>(HOE_TRANSMUTATIONS_DISPATCH_KEY).create();
-
 
     public static final TagKey<Item> UNSTABLE_INGOT_TAG = TagKey.create(
             Registries.ITEM,
@@ -91,6 +81,7 @@ public class DivisionSigil {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MODID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, MODID);
 
@@ -101,9 +92,9 @@ public class DivisionSigil {
             BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK));
     public static final DeferredItem<BlockItem> CURSED_EARTH_ITEM = ITEMS.registerSimpleBlockItem(CURSED_EARTH);
 
-    public static final DeferredItem<DivisionSigilItem> DIVISION_SIGIL = ITEMS.registerItem("division_sigil", DivisionSigilItem::new,
-            new Item.Properties().durability(256));
-    public static final DeferredItem<Item> DIVISION_SIGIL_UNACTIVATED = ITEMS.registerSimpleItem("division_sigil_unactivated", new Item.Properties().stacksTo(1));
+    public static final DeferredItem<DivisionSigilItem> DIVISION_SIGIL = ITEMS.registerItem("division_sigil", DivisionSigilItem::new);
+    public static final DeferredItem<DivisionSigilUnactivatedItem> DIVISION_SIGIL_UNACTIVATED = ITEMS.registerItem(
+            "division_sigil_unactivated", DivisionSigilUnactivatedItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<UnstableIngotItem> UNSTABLE_INGOT = ITEMS.registerItem("unstable_ingot", UnstableIngotItem::new,
             new Item.Properties().stacksTo(1));
     public static final DeferredItem<Item> UNSTABLE_NUGGET = ITEMS.registerSimpleItem("unstable_nugget");
@@ -135,35 +126,27 @@ public class DivisionSigil {
                 output.accept(EROSION_SHOVEL);
             }).build());
 
-    public static final Supplier<RecipeSerializer<UnstableRecipe>> UNSTABLE_RECIPE = RECIPE_SERIALIZERS.register("unstable_recipe", UnstableRecipe.Serializer::new);
+    public static final Supplier<RecipeType<HoeTransmutation>> HOE_TRANSMUTATION_TYPE = RECIPE_TYPES.register("hoe_transmutation", RecipeType::simple);
 
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
+    public static final Supplier<RecipeSerializer<UnstableRecipe>> UNSTABLE_RECIPE = RECIPE_SERIALIZERS.register("unstable_recipe", UnstableRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<StandardHoeTransmutation>> STANDARD_HOE_TRANSMUTATION
+            = RECIPE_SERIALIZERS.register("standard_hoe_transmutation", StandardHoeTransmutation.Serializer::new);
+    public static final Supplier<RecipeSerializer<CropRevertTransmutation>> CROP_REVERT
+            = RECIPE_SERIALIZERS.register("crop_revert_transmutation", CropRevertTransmutation.Serializer::new);
+
     public DivisionSigil(IEventBus modEventBus, ModContainer modContainer) {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         DATA_COMPONENTS.register(modEventBus);
+        RECIPE_TYPES.register(modEventBus);
         RECIPE_SERIALIZERS.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     @SubscribeEvent
-    private static void registerRegistries(NewRegistryEvent event) {
-        event.register(HOE_TRANSMUTATIONS_DISPATCH);
-    }
-
-    @SubscribeEvent
-    private static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(HOE_TRANSMUTATIONS_KEY, HoeTransmutation.CODEC);
-    }
-
-    @SubscribeEvent
-    private static void register(RegisterEvent event) {
-        event.register(HOE_TRANSMUTATIONS_DISPATCH_KEY, registry -> {
-            registry.register(ResourceLocation.fromNamespaceAndPath(MODID, "standard"), StandardHoeTransmutation.CODEC);
-            registry.register(ResourceLocation.fromNamespaceAndPath(MODID, "crop_revert"), CropRevertTransmutation.CODEC);
-        });
+    private static void modifyComponents(ModifyDefaultComponentsEvent event) {
+        event.modify(DIVISION_SIGIL, builder -> builder.set(DataComponents.MAX_DAMAGE, Config.DIVISION_SIGIL_DURABILITY.get()));
     }
 }

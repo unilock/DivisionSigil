@@ -1,20 +1,19 @@
 package com.landmaster.divisionsigil.transmutation;
 
 import com.landmaster.divisionsigil.DivisionSigil;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.function.Function;
 
-public interface HoeTransmutation extends Comparable<HoeTransmutation> {
-    Optional<BlockState> newBlockState(ServerLevel level, BlockPos pos);
-
-    MapCodec<? extends HoeTransmutation> type();
+public interface HoeTransmutation extends Comparable<HoeTransmutation>, Recipe<HoeTransmutationInput> {
+    Optional<BlockState> newBlockState(Level level, BlockPos pos);
 
     int priority();
 
@@ -23,7 +22,26 @@ public interface HoeTransmutation extends Comparable<HoeTransmutation> {
         return Integer.compare(priority(), o.priority());
     }
 
-    Codec<HoeTransmutation> CODEC = DivisionSigil.HOE_TRANSMUTATIONS_DISPATCH.byNameCodec().dispatch(
-            HoeTransmutation::type, Function.identity()
-    );
+    @Nonnull
+    @Override
+    default RecipeType<? extends Recipe<HoeTransmutationInput>> getType() {
+        return DivisionSigil.HOE_TRANSMUTATION_TYPE.get();
+    }
+
+    @Override
+    default boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Nonnull
+    @Override
+    default ItemStack assemble(@Nonnull HoeTransmutationInput hoeTransmutationInput, @Nonnull HolderLookup.Provider provider) {
+        return ItemStack.EMPTY;
+    }
+
+    @Nonnull
+    @Override
+    default ItemStack getResultItem(@Nonnull HolderLookup.Provider provider) {
+        return ItemStack.EMPTY;
+    }
 }

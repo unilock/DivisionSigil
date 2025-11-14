@@ -1,5 +1,5 @@
 {
-  "type": "divisionsigil:standard",
+  "type": "divisionsigil:standard_hoe_transmutation",
   "input": {
     "blocks": ["minecraft:farmland", "minecraft:dirt_path"]
   },
