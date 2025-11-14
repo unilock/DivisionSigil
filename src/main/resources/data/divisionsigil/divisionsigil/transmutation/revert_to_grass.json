@@ -1,0 +1,14 @@
+{
+  "type": "divisionsigil:standard",
+  "input": {
+    "blocks": ["minecraft:dirt", "minecraft:grass_block"]
+  },
+  "output": [
+    {
+      "data": {
+        "Name": "minecraft:grass_block"
+      },
+      "weight": 1
+    }
+  ]
+}

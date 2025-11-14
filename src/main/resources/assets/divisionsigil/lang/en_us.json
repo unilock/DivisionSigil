@@ -1,0 +1,22 @@
+{
+  "itemGroup.divisionsigil": "Division Sigil",
+  "item.divisionsigil.division_sigil": "Division Sigil (Activated)",
+  "item.divisionsigil.division_sigil_unactivated": "Division Sigil (Unactivated)",
+  "item.divisionsigil.unstable_ingot": "Unstable Ingot",
+  "item.divisionsigil.unstable_nugget": "Semi-Stable Nugget",
+  "item.divisionsigil.semistable_ingot": "Semi-Stable Ingot",
+  "item.divisionsigil.reversing_hoe": "Reversing Hoe",
+  "item.divisionsigil.etheric_sword": "Etheric Sword",
+  "item.divisionsigil.destruction_pickaxe": "Destruction Pickaxe",
+  "item.divisionsigil.healing_axe": "Healing Axe",
+  "item.divisionsigil.erosion_shovel": "Erosion Shovel",
+  "block.divisionsigil.cursed_earth": "Cursed Earth",
+
+  "divisionsigil.configuration.title": "Division Sigil Configs",
+  "divisionsigil.configuration.section.divisionsigil.common.toml": "Division Sigil Configs",
+  "divisionsigil.configuration.section.divisionsigil.common.toml.title": "Division Sigil Configs",
+  "divisionsigil.configuration.explodeTime": "Unstable Ingot Lifetime (in ticks)",
+
+  "message.divisionsigil.sigils_activated": "%d division sigil(s) activated",
+  "tooltip.divisionsigil.instability_counter": "Explodes in %s seconds"
+}

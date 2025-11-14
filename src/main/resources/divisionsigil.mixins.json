@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.landmaster.divisionsigil.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["InventoryMixin", "StackedContentsMixin", "FireBlockMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

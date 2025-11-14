@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "i": {
+      "tag": "c:ingots/unstable"
+    },
+    "o": {
+      "tag": "c:obsidians/normal"
+    }
+  },
+  "pattern": [
+    "ii",
+    "io",
+    " o"
+  ],
+  "result": {
+    "count": 1,
+    "id": "divisionsigil:healing_axe"
+  }
+}

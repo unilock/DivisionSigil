@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "i": {
+      "tag": "c:ingots/unstable"
+    },
+    "o": {
+      "tag": "c:obsidians/normal"
+    }
+  },
+  "pattern": [
+    "i",
+    "i",
+    "o"
+  ],
+  "result": {
+    "count": 1,
+    "id": "divisionsigil:etheric_sword"
+  }
+}

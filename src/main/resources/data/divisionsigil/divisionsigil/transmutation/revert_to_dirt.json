@@ -1,0 +1,14 @@
+{
+  "type": "divisionsigil:standard",
+  "input": {
+    "blocks": ["minecraft:farmland", "minecraft:dirt_path"]
+  },
+  "output": [
+    {
+      "data": {
+        "Name": "minecraft:dirt"
+      },
+      "weight": 1
+    }
+  ]
+}
