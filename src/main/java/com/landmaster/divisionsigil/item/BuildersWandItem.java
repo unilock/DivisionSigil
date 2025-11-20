@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nonnull;
@@ -20,15 +21,18 @@ public class BuildersWandItem extends Item {
         super(properties);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
         Player player = context.getPlayer();
+        Level level = context.getLevel();
         if (player != null) {
-            var item = context.getLevel().getBlockState(context.getClickedPos()).getBlock().asItem();
+            var item = level.getBlockState(context.getClickedPos()).getBlock().asItem();
             boolean success = false;
             if (item instanceof BlockItem blockItem) {
-                var blockPlacements = computeBlockPlacements(player, context.getHitResult(), Config.BUILDERS_WAND_MAX_BLOCKS.getAsInt());
+                var hitResult = context.getHitResult();
+                var blockPlacements = computeBlockPlacements(player, hitResult, Config.BUILDERS_WAND_MAX_BLOCKS.getAsInt());
                 var inventory = player.getInventory();
                 int itemIndex = 0;
                 placementLoop:
@@ -40,9 +44,17 @@ public class BuildersWandItem extends Item {
                         }
                     }
                     var subResult = blockItem.place(
-                            new BlockPlaceContext(player, context.getHand(), inventory.getItem(itemIndex), context.getHitResult().withPosition(pos))
+                            new BlockPlaceContext(player, context.getHand(), inventory.getItem(itemIndex), hitResult.withPosition(pos))
                     );
-
+                    var templateBlockState = level.getBlockState(pos.relative(hitResult.getDirection().getOpposite()));
+                    var newBlockState = level.getBlockState(pos);
+                    for (var property: Util.ORIENTATION_PROPERTIES) {
+                        var value = templateBlockState.getOptionalValue(property);
+                        if (value.isPresent()) {
+                            newBlockState = newBlockState.trySetValue((Property)property, (Comparable)value.get());
+                        }
+                    }
+                    level.setBlock(pos, newBlockState, 2);
                     success |= subResult.indicateItemUse();
                 }
             }

@@ -10,6 +10,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.*;
 
@@ -32,4 +34,10 @@ public class Util {
             Direction.Axis.Y, ImmutableList.of(Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST),
             Direction.Axis.Z, ImmutableList.of(Direction.UP, Direction.WEST, Direction.DOWN, Direction.EAST)
     ));
+
+    public static final List<Property<?>> ORIENTATION_PROPERTIES = ImmutableList.of(
+            BlockStateProperties.FACING, BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.FACING_HOPPER,
+            BlockStateProperties.AXIS, BlockStateProperties.HORIZONTAL_AXIS, BlockStateProperties.ORIENTATION,
+            BlockStateProperties.VERTICAL_DIRECTION
+    );
 }
