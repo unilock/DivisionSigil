@@ -81,6 +81,8 @@ public class DivisionSigil {
 
     public static final Supplier<DataComponentType<Long>> INSTABILITY_TIMESTAMP = DATA_COMPONENTS.registerComponentType("instability_timestamp",
             builder -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG));
+    public static final Supplier<DataComponentType<Boolean>> UNBREAKABLE = DATA_COMPONENTS.registerComponentType("unbreakable",
+            builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
 
     public static final DeferredBlock<CursedEarthBlock> CURSED_EARTH = BLOCKS.registerBlock("cursed_earth", CursedEarthBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK));
@@ -100,15 +102,16 @@ public class DivisionSigil {
     public static final DeferredItem<ReversingHoeItem> REVERSING_HOE = ITEMS.registerItem("reversing_hoe",
             properties -> new ReversingHoeItem(UNSTABLE_TIER, properties),
             new Item.Properties().attributes(HoeItem.createAttributes(UNSTABLE_TIER, -3.0F, 0.0F)));
-    public static final DeferredItem<Item> ETHERIC_SWORD = ITEMS.registerItem("etheric_sword", (props)
+    public static final DeferredItem<EthericSwordItem> ETHERIC_SWORD = ITEMS.registerItem("etheric_sword", (props)
             -> new EthericSwordItem(UNSTABLE_TIER, props),
             new Item.Properties().attributes(SwordItem.createAttributes(UNSTABLE_TIER, 3, -2.4F)));
-    public static final DeferredItem<Item> DESTRUCTION_PICKAXE = ITEMS.registerItem("destruction_pickaxe", props -> new PickaxeItem(UNSTABLE_TIER, props),
+    public static final DeferredItem<DestructionPickaxeItem> DESTRUCTION_PICKAXE = ITEMS.registerItem("destruction_pickaxe",
+            props -> new DestructionPickaxeItem(UNSTABLE_TIER, props),
             new Item.Properties().attributes(PickaxeItem.createAttributes(UNSTABLE_TIER, 1.0F, -2.8F)));
     public static final DeferredItem<HealingAxeItem> HEALING_AXE = ITEMS.registerItem("healing_axe",
             properties -> new HealingAxeItem(UNSTABLE_TIER, properties),
             new Item.Properties().attributes(AxeItem.createAttributes(UNSTABLE_TIER, 5.0F, -3.0F)));
-    public static final DeferredItem<ShovelItem> EROSION_SHOVEL = ITEMS.registerItem("erosion_shovel",
+    public static final DeferredItem<ErosionShovelItem> EROSION_SHOVEL = ITEMS.registerItem("erosion_shovel",
             properties -> new ErosionShovelItem(UNSTABLE_TIER, properties),
             new Item.Properties().attributes(ShovelItem.createAttributes(UNSTABLE_TIER, 1.5F, -3.0F)));
     public static final DeferredItem<BuildersWandItem> BUILDERS_WAND = ITEMS.registerItem("builders_wand", BuildersWandItem::new,

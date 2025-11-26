@@ -10,14 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class EthericSwordItem extends SwordItem {
-    public EthericSwordItem(Tier tier, Properties properties) {
-        super(tier, properties);
-    }
-
-    @Override
-    public void postHurtEnemy(@Nonnull  ItemStack stack, @Nonnull LivingEntity target, @Nonnull LivingEntity attacker) {
-        // no-op (do not damage tool)
+public class DestructionPickaxeItem extends PickaxeItem {
+    public DestructionPickaxeItem(Tier p_42961_, Properties p_42964_) {
+        super(p_42961_, p_42964_);
     }
 
     @Override

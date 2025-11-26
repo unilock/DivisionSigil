@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "i": {
-      "tag": "c:ingots/unstable"
+      "tag": "c:ingots/unstable_non_mobius"
     },
     "o": {
       "tag": "c:obsidians/normal"

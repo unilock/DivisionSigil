@@ -51,6 +51,7 @@
 
   "tooltip.divisionsigil.instability_warning": "ERROR: Divide by diamond (explodes in %s seconds when crafted)",
   "tooltip.divisionsigil.instability_counter": "Explodes in %s seconds",
+  "tooltip.divisionsigil.unbreakable": "Unbreakable",
 
   "gui.divisionsigil.fire_chest": "North/Fire Chest (%d items required)",
   "gui.divisionsigil.earth_chest": "South/Earth Chest (%d items required)",

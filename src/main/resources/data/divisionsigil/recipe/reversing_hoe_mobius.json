@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "i": {
-      "tag": "c:ingots/unstable_non_mobius"
+      "item": "divisionsigil:mobius_ingot"
     },
     "o": {
       "tag": "c:obsidians/normal"
@@ -16,6 +16,9 @@
   ],
   "result": {
     "count": 1,
-    "id": "divisionsigil:reversing_hoe"
+    "id": "divisionsigil:reversing_hoe",
+    "components": {
+      "divisionsigil:unbreakable": true
+    }
   }
 }
