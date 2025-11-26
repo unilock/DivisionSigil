@@ -53,5 +53,25 @@ public class Config {
             .comment("Whether the normal division sigil ritual should be enabled (disable if modpack author wants division sigils activated by some other means)")
             .define("enableRitual", true);
 
+    public static final ModConfigSpec.DoubleValue CURSED_EARTH_SPAWN_RATE = BUILDER
+            .comment("Cursed earth spawn probability per random tick")
+            .defineInRange("cursedEarthSpawnRate", 1.0, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue END_SIEGE_ENDERMAN_BLOCK_DISTANCE = BUILDER
+            .comment("Endermen are prevented from spawning below this distance from an end siege")
+            .defineInRange("endermanBlockDistance", 300.0, 0.0, 10000000.0);
+
+    public static final ModConfigSpec.DoubleValue END_SIEGE_SPAWN_ATTEMPT_PROBABILITY = BUILDER
+            .comment("Probability of an end siege monster spawn attempt per tick")
+            .defineInRange("endSiegeSpawnProbability", 0.1, 0.0, 1.0);
+
+    public static final ModConfigSpec.IntValue END_SIEGE_SPAWN_ATTEMPT_DISTANCE = BUILDER
+            .comment("Maximum distance from beacon where end siege monsters will attempt to spawn")
+            .defineInRange("endSiegeSpawnDistance", 100, 0, 500);
+
+    public static final ModConfigSpec.IntValue END_SIEGE_KILL_COUNT = BUILDER
+            .comment("Number of mobs to kill for the End Siege")
+            .defineInRange("endSiegeKillCount", 14, 0, 1000);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 }

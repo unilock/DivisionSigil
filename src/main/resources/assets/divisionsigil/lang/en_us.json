@@ -2,9 +2,11 @@
   "itemGroup.divisionsigil": "Division Sigil",
   "item.divisionsigil.division_sigil": "Division Sigil (Activated)",
   "item.divisionsigil.division_sigil_unactivated": "Division Sigil (Unactivated)",
+  "item.divisionsigil.pseudo_inversion_sigil": "Pseudo-Inversion Sigil",
   "item.divisionsigil.unstable_ingot": "Unstable Ingot",
   "item.divisionsigil.unstable_nugget": "Semi-Stable Nugget",
   "item.divisionsigil.semistable_ingot": "Semi-Stable Ingot",
+  "item.divisionsigil.mobius_ingot": "Mobius \"Stable-Unstable\" Ingot",
   "item.divisionsigil.reversing_hoe": "Reversing Hoe",
   "item.divisionsigil.etheric_sword": "Etheric Sword",
   "item.divisionsigil.destruction_pickaxe": "Destruction Pickaxe",
@@ -28,6 +30,7 @@
   "divisionsigil.configuration.erosionShovelMultiplier": "Erosion Shovel speed multiplier",
   "divisionsigil.configuration.wandMaxBlocks": "Builder's Wand maximum blocks",
   "divisionsigil.configuration.enableRitual": "Enable Division Sigil ritual",
+  "divisionsigil.configuration.cursedEarthSpawnRate": "Cursed Earth spawn rate",
 
   "message.divisionsigil.sigils_activated": "%d division sigil(s) activated",
   "message.divisionsigil.midnight_condition": "The Division Sigil ritual must be performed at midnight.",
@@ -35,9 +38,20 @@
   "message.divisionsigil.redstone_condition": "The enchantment table must be surrounded by 8 adjacent redstone wire blocks.",
   "message.divisionsigil.dirt_condition": "The enchantment table must be on a 5 by 5 surface of dirt or equivalent blocks.",
   "message.divisionsigil.kill_condition": "The sacrifice conditions are right. Kill any mob near the table to activate the division sigil(s).",
+  "message.divisionsigil.stabilization.redstone_condition": "There is missing or misplaced redstone dust (incorrect blocks are highlighted).",
+  "message.divisionsigil.stabilization.chest_condition": "There needs to be 4 chests in the cardinal directions, with 4 spaces between them and the beacon, with the correct items (check JEI).",
+  "message.divisionsigil.stabilization.kill_condition": "The sacrifice conditions are right. Now, sacrifice one that would sacrifice itself.",
+  "message.divisionsigil.stabilization.siege_started": "The End Siege has started. Kill %d siege monsters to stabilization the Sigil",
+  "message.divisionsigil.stabilization.kill_count": "Kill count: %d / %d",
+  "message.divisionsigil.stabilization.complete": "The End Siege has concluded.",
 
   "tooltip.divisionsigil.instability_warning": "ERROR: Divide by diamond (explodes in %s seconds when crafted)",
   "tooltip.divisionsigil.instability_counter": "Explodes in %s seconds",
+
+  "gui.divisionsigil.fire_chest": "North/Fire Chest (%d items required)",
+  "gui.divisionsigil.earth_chest": "South/Earth Chest (%d items required)",
+  "gui.divisionsigil.water_chest": "East/Water Chest (%d items required)",
+  "gui.divisionsigil.air_chest": "West/Air Chest (%d items required)",
 
   "gui.divisionsigil.biome_allowlist": "(certain biomes only)",
   "gui.divisionsigil.biome_denylist": "(except certain biomes)"

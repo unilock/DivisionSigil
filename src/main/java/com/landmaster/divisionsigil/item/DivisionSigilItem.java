@@ -5,10 +5,12 @@ import com.landmaster.divisionsigil.DivisionSigil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
@@ -22,6 +24,44 @@ import javax.annotation.Nonnull;
 public class DivisionSigilItem extends Item {
     public DivisionSigilItem(Properties properties) {
         super(properties);
+    }
+
+    @Nonnull
+    @Override
+    public InteractionResult onItemUseFirst(@Nonnull ItemStack stack, @Nonnull UseOnContext context) {
+        var level = context.getLevel();
+        if (PseudoInversionSigilItem.isRitualEnabled(level)) {
+            var pos = context.getClickedPos();
+            var player = context.getPlayer();
+            if (player != null
+                    && level.getBlockState(pos).is(Blocks.BEACON)
+                    && level.dimension() == Level.END) {
+                if (!level.isClientSide()) {
+                    boolean allConditionsFulfilled = true;
+                    var incorrectRedstone = PseudoInversionSigilItem.checkRedstoneCondition(level, pos);
+                    player.setData(DivisionSigil.INCORRECT_REDSTONE, incorrectRedstone);
+                    if (!incorrectRedstone.isEmpty()) {
+                        player.displayClientMessage(
+                                Component.translatable("message.divisionsigil.stabilization.redstone_condition"),
+                                false);
+                        allConditionsFulfilled = false;
+                    }
+                    if (!PseudoInversionSigilItem.checkChestCondition(level, pos)) {
+                        player.displayClientMessage(
+                                Component.translatable("message.divisionsigil.stabilization.chest_condition"),
+                                false);
+                        allConditionsFulfilled = false;
+                    }
+                    if (allConditionsFulfilled) {
+                        player.displayClientMessage(
+                                Component.translatable("message.divisionsigil.stabilization.kill_condition"),
+                                false);
+                    }
+                }
+                return InteractionResult.SUCCESS_NO_ITEM_USED;
+            }
+        }
+        return super.onItemUseFirst(stack, context);
     }
 
     @Override
@@ -92,6 +132,7 @@ public class DivisionSigilItem extends Item {
                                 }
                                 inventory.setChanged();
                             }
+                            break;
                         }
                     }
                 }

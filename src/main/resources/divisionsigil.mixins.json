@@ -3,7 +3,6 @@
   "package": "com.landmaster.divisionsigil.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": ["InventoryMixin", "StackedContentsMixin", "FireBlockMixin"],
-  "client": ["LevelRendererMixin"],
   "injectors": {
     "defaultRequire": 1
   },

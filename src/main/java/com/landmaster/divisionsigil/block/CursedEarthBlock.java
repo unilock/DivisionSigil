@@ -1,5 +1,6 @@
 package com.landmaster.divisionsigil.block;
 
+import com.landmaster.divisionsigil.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +32,7 @@ public class CursedEarthBlock extends Block {
 
     @Override
     protected void randomTick(@Nonnull BlockState state, ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
-        if (!level.isClientSide()) {
+        if (!level.isClientSide() && random.nextDouble() < Config.CURSED_EARTH_SPAWN_RATE.getAsDouble()) {
             var posAbove = pos.above();
 
             if (level.canSeeSky(posAbove) && level.isDay() && level.getBlockState(posAbove).isAir() && !level.isRainingAt(posAbove)) {

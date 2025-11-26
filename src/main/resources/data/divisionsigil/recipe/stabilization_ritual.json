@@ -1,0 +1,116 @@
+{
+  "type": "divisionsigil:standard_stabilization_ritual",
+  "ingredients": {
+    "fire": [
+      {
+        "tag": "c:ingots/iron"
+      },
+      {
+        "tag": "c:ingots/gold"
+      },
+      {
+        "tag": "c:ingots/copper"
+      },
+      {
+        "item": "minecraft:stone"
+      },
+      {
+        "item": "minecraft:brick"
+      },
+      {
+        "item": "minecraft:glass"
+      },
+      {
+        "item": "minecraft:nether_brick"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ],
+    "earth": [
+      {
+        "item": "minecraft:dirt"
+      },
+      {
+        "tag": "minecraft:emerald_ores"
+      },
+      {
+        "tag": "minecraft:diamond_ores"
+      },
+      {
+        "tag": "minecraft:gold_ores"
+      },
+      {
+        "tag": "minecraft:copper_ores"
+      },
+      {
+        "tag": "minecraft:iron_ores"
+      },
+      {
+        "item": "minecraft:sculk_catalyst"
+      },
+      {
+        "tag": "minecraft:sand"
+      }
+    ],
+    "water": [
+      {
+        "item": "minecraft:prismarine_crystals"
+      },
+      {
+        "item": "minecraft:prismarine_shard"
+      },
+      {
+        "item": "minecraft:kelp"
+      },
+      {
+        "item": "minecraft:conduit"
+      },
+      {
+        "item": "minecraft:sponge"
+      },
+      {
+        "type": "neoforge:block_tag",
+        "tag": "minecraft:coral_plants"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "item": "minecraft:trident"
+      }
+    ],
+    "air": [
+      {
+        "tag": "minecraft:creeper_drop_music_discs"
+      },
+      {
+        "item": "minecraft:music_disc_otherside"
+      },
+      {
+        "item": "minecraft:music_disc_5"
+      },
+      {
+        "item": "minecraft:music_disc_pigstep"
+      },
+      {
+        "item": "minecraft:music_disc_relic"
+      },
+      {
+        "item": "minecraft:music_disc_precipice"
+      },
+      {
+        "item": "minecraft:music_disc_creator"
+      },
+      {
+        "item": "minecraft:music_disc_creator_music_box"
+      }
+    ]
+  },
+  "requirements": {
+    "fire": 8,
+    "earth": 8,
+    "water": 8,
+    "air": 8
+  }
+}
