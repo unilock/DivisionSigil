@@ -31,6 +31,10 @@
   "divisionsigil.configuration.wandMaxBlocks": "Builder's Wand maximum blocks",
   "divisionsigil.configuration.enableRitual": "Enable Division Sigil ritual",
   "divisionsigil.configuration.cursedEarthSpawnRate": "Cursed Earth spawn rate",
+  "divisionsigil.configuration.endermanBlockDistance": "End Siege normal spawn cancellation radius",
+  "divisionsigil.configuration.endSiegeSpawnProbability": "End Siege spawn probability/tick",
+  "divisionsigil.configuration.endSiegeSpawnDistance": "End Siege spawn radius",
+  "divisionsigil.configuration.endSiegeKillCount": "End Siege required kill count",
 
   "message.divisionsigil.sigils_activated": "%d division sigil(s) activated",
   "message.divisionsigil.midnight_condition": "The Division Sigil ritual must be performed at midnight.",
