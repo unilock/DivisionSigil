@@ -16,7 +16,6 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobDespawnEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import javax.annotation.Nonnull;
 
@@ -59,7 +58,7 @@ public class CursedEarthBlock extends Block {
                     && level.noCollision(spawnerData.type.getSpawnAABB(posAbove.getX() + 0.5, posAbove.getY(), posAbove.getZ() + 0.5))) {
                         var monster = spawnerData.type.spawn(level, posAbove, MobSpawnType.NATURAL);
                         if (monster != null) {
-                            monster.setData(DivisionSigil.CURSED_EARTH_SPAWNED, true);
+                            monster.setData(DivisionSigil.CURSED_EARTH_SPAWN_TIMESTAMP, level.getGameTime());
                         }
                     }
                 });
@@ -69,8 +68,10 @@ public class CursedEarthBlock extends Block {
 
     @SubscribeEvent
     private static void onDespawnCheck(MobDespawnEvent event) {
-        if (event.getEntity().getData(DivisionSigil.CURSED_EARTH_SPAWNED) && event.getEntity().tickCount < Config.CURSED_EARTH_MOB_TICK_LIFESPAN.getAsInt()) {
-            event.setResult(MobDespawnEvent.Result.DENY);
-        }
+        event.getEntity().getExistingData(DivisionSigil.CURSED_EARTH_SPAWN_TIMESTAMP).ifPresent(timestamp -> {
+            if (event.getLevel() instanceof ServerLevel level && level.getGameTime() - timestamp < Config.CURSED_EARTH_MOB_TICK_LIFESPAN.getAsInt()) {
+                event.setResult(MobDespawnEvent.Result.DENY);
+            }
+        });
     }
 }

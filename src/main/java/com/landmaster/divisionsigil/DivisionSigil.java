@@ -156,8 +156,8 @@ public class DivisionSigil {
             .<List<BlockPos>>builder(() -> ImmutableList.of())
             .sync((holder, to) -> holder == to, ByteBufCodecs.collection(ArrayList::new, BlockPos.STREAM_CODEC))
             .build());
-    public static final Supplier<AttachmentType<Boolean>> CURSED_EARTH_SPAWNED
-            = ATTACHMENT_TYPES.register("cursed_earth_spawned", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build());
+    public static final Supplier<AttachmentType<Long>> CURSED_EARTH_SPAWN_TIMESTAMP
+            = ATTACHMENT_TYPES.register("cursed_earth_spawned", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).build());
     public static final Supplier<AttachmentType<BlockPos>> END_SIEGE_LOCATION
             = ATTACHMENT_TYPES.register("end_siege_location", () -> AttachmentType
             .builder(() -> BlockPos.ZERO)
