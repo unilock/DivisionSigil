@@ -29,7 +29,7 @@
     ],
     "earth": [
       {
-        "item": "minecraft:dirt"
+        "tag": "minecraft:dirt"
       },
       {
         "tag": "minecraft:emerald_ores"

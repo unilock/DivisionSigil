@@ -1,19 +1,27 @@
 package com.landmaster.divisionsigil.item;
 
 import com.landmaster.divisionsigil.Config;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class DivisionSigilUnactivatedItem extends Item {
     public DivisionSigilUnactivatedItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull TooltipContext context, List<Component> tooltipComponents, @Nonnull TooltipFlag tooltipFlag) {
+        tooltipComponents.add(Component.translatable("tooltip.divisionsigil.enchanting_table_right_click").withStyle(ChatFormatting.AQUA));
     }
 
     @Nonnull

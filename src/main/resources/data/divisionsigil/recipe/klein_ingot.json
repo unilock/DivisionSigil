@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "c:ingots/netherite"
+    },
+    "s": {
+      "item": "divisionsigil:pseudo_inversion_sigil"
+    },
+    "d": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "i",
+    "s",
+    "d"
+  ],
+  "result": {
+    "count": 1,
+    "id": "divisionsigil:klein_ingot"
+  }
+}

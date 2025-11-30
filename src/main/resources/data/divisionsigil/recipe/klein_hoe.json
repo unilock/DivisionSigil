@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "divisionsigil:klein_ingot"
+  },
+  "base": {
+    "type": "neoforge:components",
+    "items": ["divisionsigil:reversing_hoe"],
+    "components": {
+      "divisionsigil:unbreakable": true
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "divisionsigil:klein_hoe"
+  },
+  "template": {
+    "item": "divisionsigil:klein_upgrade_template"
+  }
+}

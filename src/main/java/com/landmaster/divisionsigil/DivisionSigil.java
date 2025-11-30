@@ -11,6 +11,7 @@ import com.landmaster.divisionsigil.transmutation.CropRevertTransmutation;
 import com.landmaster.divisionsigil.transmutation.HoeTransmutation;
 import com.landmaster.divisionsigil.transmutation.StandardHoeTransmutation;
 import com.mojang.serialization.Codec;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.UUIDUtil;
@@ -62,15 +63,6 @@ public class DivisionSigil {
             ResourceLocation.fromNamespaceAndPath("c", "ingots/unstable")
     );
 
-    public static final Tier UNSTABLE_TIER = new SimpleTier(
-            Tiers.DIAMOND.getIncorrectBlocksForDrops(),
-            Tiers.DIAMOND.getUses(),
-            Tiers.DIAMOND.getSpeed(),
-            Tiers.DIAMOND.getAttackDamageBonus(),
-            Tiers.DIAMOND.getEnchantmentValue(),
-            () -> Ingredient.of(UNSTABLE_INGOT_TAG)
-    );
-
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -99,7 +91,27 @@ public class DivisionSigil {
             new Item.Properties().stacksTo(1));
     public static final DeferredItem<Item> UNSTABLE_NUGGET = ITEMS.registerSimpleItem("unstable_nugget");
     public static final DeferredItem<Item> SEMISTABLE_INGOT = ITEMS.registerSimpleItem("semistable_ingot");
-    public static final DeferredItem<MobiusIngotItem> MOBIUS_INGOT = ITEMS.registerItem("mobius_ingot", MobiusIngotItem::new);
+    public static final DeferredItem<FoilItem> MOBIUS_INGOT = ITEMS.registerItem("mobius_ingot", FoilItem::new);
+    public static final DeferredItem<FoilItem> KLEIN_INGOT = ITEMS.registerItem("klein_ingot", FoilItem::new);
+
+    public static final Tier UNSTABLE_TIER = new SimpleTier(
+            Tiers.DIAMOND.getIncorrectBlocksForDrops(),
+            Tiers.DIAMOND.getUses(),
+            Tiers.DIAMOND.getSpeed(),
+            Tiers.DIAMOND.getAttackDamageBonus(),
+            Tiers.DIAMOND.getEnchantmentValue(),
+            () -> Ingredient.of(UNSTABLE_INGOT_TAG)
+    );
+
+    public static final Tier KLEIN_TIER = new SimpleTier(
+            Tiers.NETHERITE.getIncorrectBlocksForDrops(),
+            Tiers.NETHERITE.getUses(),
+            Tiers.NETHERITE.getSpeed(),
+            Tiers.NETHERITE.getAttackDamageBonus(),
+            Tiers.NETHERITE.getEnchantmentValue(),
+            () -> Ingredient.of(KLEIN_INGOT)
+    );
+
     public static final DeferredItem<ReversingHoeItem> REVERSING_HOE = ITEMS.registerItem("reversing_hoe",
             properties -> new ReversingHoeItem(UNSTABLE_TIER, properties),
             new Item.Properties().attributes(HoeItem.createAttributes(UNSTABLE_TIER, -3.0F, 0.0F)));
@@ -118,6 +130,44 @@ public class DivisionSigil {
     public static final DeferredItem<BuildersWandItem> BUILDERS_WAND = ITEMS.registerItem("builders_wand", BuildersWandItem::new,
             new Item.Properties().stacksTo(1));
 
+    public static final DeferredItem<ReversingHoeItem> KLEIN_REVERSING_HOE = ITEMS.registerItem("klein_hoe",
+            properties -> new ReversingHoeItem(KLEIN_TIER, properties),
+            new Item.Properties().fireResistant()
+                    .attributes(HoeItem.createAttributes(KLEIN_TIER, -4.0F, 0.0F)));
+    public static final DeferredItem<EthericSwordItem> KLEIN_ETHERIC_SWORD = ITEMS.registerItem("klein_sword",
+            properties -> new EthericSwordItem(KLEIN_TIER, properties),
+            new Item.Properties().fireResistant()
+                    .attributes(SwordItem.createAttributes(KLEIN_TIER, 3, -2.4F)));
+    public static final DeferredItem<HealingAxeItem> KLEIN_HEALING_AXE = ITEMS.registerItem("klein_axe",
+            properties -> new HealingAxeItem(KLEIN_TIER, properties),
+            new Item.Properties().fireResistant()
+                    .attributes(AxeItem.createAttributes(KLEIN_TIER, 5.0F, -3.0F)));
+    public static final DeferredItem<DestructionPickaxeItem> KLEIN_DESTRUCTION_PICKAXE = ITEMS.registerItem("klein_pickaxe",
+            props -> new DestructionPickaxeItem(KLEIN_TIER, props),
+            new Item.Properties().fireResistant()
+                    .attributes(PickaxeItem.createAttributes(KLEIN_TIER, 1.0F, -2.8F)));
+    public static final DeferredItem<ErosionShovelItem> KLEIN_EROSION_SHOVEL = ITEMS.registerItem("klein_shovel",
+            properties -> new ErosionShovelItem(KLEIN_TIER, properties),
+            new Item.Properties().fireResistant()
+                    .attributes(ShovelItem.createAttributes(KLEIN_TIER, 1.5F, -3.0F)));
+
+    public static final DeferredItem<SmithingTemplateItem> KLEIN_UPGRADE_TEMPLATE = ITEMS.register("klein_upgrade_template",
+            () -> new SmithingTemplateItem(
+                    Component.translatable("divisionsigil.klein_upgrade_template.applies_to").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("divisionsigil.klein_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("divisionsigil.klein_upgrade_template.upgrade_description").withStyle(ChatFormatting.GRAY),
+                    Component.translatable("divisionsigil.klein_upgrade_template.base_slot_description"),
+                    Component.translatable("divisionsigil.klein_upgrade_template.additions_slot_description"),
+                    ImmutableList.of(
+                            ResourceLocation.withDefaultNamespace("item/empty_slot_sword"),
+                            ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe"),
+                            ResourceLocation.withDefaultNamespace("item/empty_slot_axe"),
+                            ResourceLocation.withDefaultNamespace("item/empty_slot_shovel"),
+                            ResourceLocation.withDefaultNamespace("item/empty_slot_hoe")
+                    ),
+                    ImmutableList.of(ResourceLocation.withDefaultNamespace("item/empty_slot_ingot"))
+            ));
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SIGIL_TAB = CREATIVE_MODE_TABS.register("division_sigil", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.divisionsigil")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
@@ -130,6 +180,7 @@ public class DivisionSigil {
                 output.accept(UNSTABLE_NUGGET);
                 output.accept(SEMISTABLE_INGOT);
                 output.accept(MOBIUS_INGOT);
+                output.accept(KLEIN_INGOT);
                 output.accept(CURSED_EARTH_ITEM);
                 output.accept(REVERSING_HOE);
                 output.accept(ETHERIC_SWORD);
@@ -137,6 +188,12 @@ public class DivisionSigil {
                 output.accept(HEALING_AXE);
                 output.accept(EROSION_SHOVEL);
                 output.accept(BUILDERS_WAND);
+                output.accept(KLEIN_REVERSING_HOE);
+                output.accept(KLEIN_ETHERIC_SWORD);
+                output.accept(KLEIN_DESTRUCTION_PICKAXE);
+                output.accept(KLEIN_HEALING_AXE);
+                output.accept(KLEIN_EROSION_SHOVEL);
+                output.accept(KLEIN_UPGRADE_TEMPLATE);
             }).build());
 
     public static final Supplier<RecipeType<HoeTransmutation>> HOE_TRANSMUTATION_TYPE = RECIPE_TYPES.register("hoe_transmutation", RecipeType::simple);
@@ -198,6 +255,23 @@ public class DivisionSigil {
                 Tool.Rule.minesAndDrops(BlockTags.BASE_STONE_OVERWORLD, (float) (UNSTABLE_TIER.getSpeed() * Config.DESTRUCTION_PICKAXE_SPEED_MULTIPLIER.getAsDouble())),
                 Tool.Rule.minesAndDrops(BlockTags.MINEABLE_WITH_PICKAXE, UNSTABLE_TIER.getSpeed())),
                 1.0F, 1)));
+        event.modify(KLEIN_EROSION_SHOVEL, builder -> builder.set(UNBREAKABLE.get(), true).set(
+                DataComponents.TOOL, new Tool(List.of(
+                        Tool.Rule.deniesDrops(KLEIN_TIER.getIncorrectBlocksForDrops()),
+                        Tool.Rule.minesAndDrops(BlockTags.DIRT, (float) (KLEIN_TIER.getSpeed() * Config.EROSION_SHOVEL_SPEED_MULTIPLIER.getAsDouble())),
+                        Tool.Rule.minesAndDrops(BlockTags.MINEABLE_WITH_SHOVEL, KLEIN_TIER.getSpeed())),
+                        1.0F, 1))
+        );
+        event.modify(KLEIN_DESTRUCTION_PICKAXE, builder -> builder.set(UNBREAKABLE.get(), true).set(
+                DataComponents.TOOL, new Tool(List.of(
+                        Tool.Rule.deniesDrops(KLEIN_TIER.getIncorrectBlocksForDrops()),
+                        Tool.Rule.minesAndDrops(BlockTags.BASE_STONE_OVERWORLD, (float) (KLEIN_TIER.getSpeed() * Config.DESTRUCTION_PICKAXE_SPEED_MULTIPLIER.getAsDouble())),
+                        Tool.Rule.minesAndDrops(BlockTags.MINEABLE_WITH_PICKAXE, KLEIN_TIER.getSpeed())),
+                        1.0F, 1))
+        );
+        event.modify(KLEIN_HEALING_AXE, builder -> builder.set(UNBREAKABLE.get(), true));
+        event.modify(KLEIN_ETHERIC_SWORD, builder -> builder.set(UNBREAKABLE.get(), true));
+        event.modify(KLEIN_REVERSING_HOE, builder -> builder.set(UNBREAKABLE.get(), true));
     }
 
     @SubscribeEvent

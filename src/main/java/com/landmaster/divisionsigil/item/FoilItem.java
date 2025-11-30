@@ -5,8 +5,8 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class MobiusIngotItem extends Item {
-    public MobiusIngotItem(Properties properties) {
+public class FoilItem extends Item {
+    public FoilItem(Properties properties) {
         super(properties);
     }
 
